@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+	// "fmt"
 	"log"
 	"net/http"
 
@@ -31,27 +31,26 @@ func initFirestore() {
 
 type Organ struct {
 	State             string `firestore:"state"`
-	All               string    `firestore:"all"`
-	Kidney            string    `firestore:"kidney"`
-	Liver             string    `firestore:"liver"`
-	Pancrease         string    `firestore:"pancrease"`
-	KidneyPancreas    string    `firestore:"kidney_pancreas"`
-	Heart             string    `firestore:"heart"`
-	Lung              string    `firestore:"lung"`
-	HeartLung         string    `firestore:"heart_lung"`
-	Intestine         string    `firestore:"intestine"`
-	AbdominalWall     string    `firestore:"abdominal_wall"`
-	Craniofacial      string    `firestore:"craniofacial"`
-	GUUterus          string    `firestore:"gu_uterus"`
-	UpperLimbBilateral string    `firestore:"upper_limb_bilateral"`
-	UpperLimbUnilateral string   `firestore:"upper_limb_unilateral"`
+	All               string `firestore:"all"`
+	Kidney            string `firestore:"kidney"`
+	Liver             string `firestore:"liver"`
+	Pancrease         string `firestore:"pancrease"`
+	KidneyPancreas    string `firestore:"kidney_pancreas"`
+	Heart             string `firestore:"heart"`
+	Lung              string `firestore:"lung"`
+	HeartLung         string `firestore:"heart_lung"`
+	Intestine         string `firestore:"intestine"`
+	AbdominalWall     string `firestore:"abdominal_wall"`
+	Craniofacial      string `firestore:"craniofacial"`
+	GUUterus          string `firestore:"gu_uterus"`
+	UpperLimbBilateral string `firestore:"upper_limb_bilateral"`
+	UpperLimbUnilateral string `firestore:"upper_limb_unilateral"`
 }
 
 
 func getOrgans(c *gin.Context) {
     ctx := context.Background()
 
-    // Fetch the data from Firestore collection 'organs'
     iter := firestoreClient.Collection(collectionName).Documents(ctx)
     var organs []Organ
 
@@ -70,11 +69,10 @@ func getOrgans(c *gin.Context) {
             log.Printf("Error converting document to Organ: %v", err)
             continue
         }
-		fmt.Print(organ)
+
         organs = append(organs, organ)
     }
 
-	fmt.Println("Organs->", organs)
     c.JSON(http.StatusOK, organs)
 }
 
@@ -83,5 +81,5 @@ func main() {
 
     r := gin.Default()
     r.GET("/organs", getOrgans)
-    r.Run(":8080") // Run the server on port 8080
+    r.Run(":8080") 
 }
