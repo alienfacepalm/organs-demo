@@ -30,22 +30,23 @@ func initFirestore() {
 }
 
 type Organ struct {
-	state string 
-	all int 
-	kidney int
-	liver int 
-	pancrease int 
-	kidney_pancreas int 
-	heart int 
-	lung int 
-	heart_lung int 
-	intestine int 
-	abdominal_wall int
-	craniofacial int 
-	gu_uterus int 
-	upper_limb_bilateral int 
-	upper_limb_unilateral int
+	State             string `firestore:"state"`
+	All               string    `firestore:"all"`
+	Kidney            string    `firestore:"kidney"`
+	Liver             string    `firestore:"liver"`
+	Pancrease         string    `firestore:"pancrease"`
+	KidneyPancreas    string    `firestore:"kidney_pancreas"`
+	Heart             string    `firestore:"heart"`
+	Lung              string    `firestore:"lung"`
+	HeartLung         string    `firestore:"heart_lung"`
+	Intestine         string    `firestore:"intestine"`
+	AbdominalWall     string    `firestore:"abdominal_wall"`
+	Craniofacial      string    `firestore:"craniofacial"`
+	GUUterus          string    `firestore:"gu_uterus"`
+	UpperLimbBilateral string    `firestore:"upper_limb_bilateral"`
+	UpperLimbUnilateral string   `firestore:"upper_limb_unilateral"`
 }
+
 
 func getOrgans(c *gin.Context) {
     ctx := context.Background()
