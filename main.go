@@ -13,8 +13,8 @@ import (
 )
 
 const (
-    projectId       = "organs-demo" // Replace with your actual project ID
-    firestoreAPIKey = "./organs-demo-api-key.json" // Replace with the path to your Firestore API key JSON file
+    projectId       = "organs-demo" 
+    firestoreAPIKey = "./organs-demo-api-key.json" 
     collectionName  = "organs"
 )
 
