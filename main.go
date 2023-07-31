@@ -34,7 +34,7 @@ type Organ struct {
     All string `firestore:"all"`
     Kidney string `firestore:"kidney"`
     Liver string `firestore:"liver"`
-    Pancrease string `firestore:"pancrease"`
+    Pancreas string `firestore:"pancreas"`
     KidneyPancreas string `firestore:"kidney_pancreas"`
     Heart string `firestore:"heart"`
     Lung string `firestore:"lung"`
