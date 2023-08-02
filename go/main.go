@@ -30,21 +30,21 @@ func initFirestore() {
 }
 
 type Organ struct {
-	State             string `firestore:"state"`
-	All               string `firestore:"all"`
-	Kidney            string `firestore:"kidney"`
-	Liver             string `firestore:"liver"`
-	Pancrease         string `firestore:"pancrease"`
-	KidneyPancreas    string `firestore:"kidney_pancreas"`
-	Heart             string `firestore:"heart"`
-	Lung              string `firestore:"lung"`
-	HeartLung         string `firestore:"heart_lung"`
-	Intestine         string `firestore:"intestine"`
-	AbdominalWall     string `firestore:"abdominal_wall"`
-	Craniofacial      string `firestore:"craniofacial"`
-	GUUterus          string `firestore:"gu_uterus"`
-	UpperLimbBilateral string `firestore:"upper_limb_bilateral"`
-	UpperLimbUnilateral string `firestore:"upper_limb_unilateral"`
+    State string `firestore:"state"`
+    All string `firestore:"all"`
+    Kidney string `firestore:"kidney"`
+    Liver string `firestore:"liver"`
+    Pancreas string `firestore:"pancreas"`
+    KidneyPancreas string `firestore:"kidney_pancreas"`
+    Heart string `firestore:"heart"`
+    Lung string `firestore:"lung"`
+    HeartLung string `firestore:"heart_lung"`
+    Intestine string `firestore:"intestine"`
+    AbdominalWall string `firestore:"abdominal_wall"`
+    Craniofacial string `firestore:"craniofacial"`
+    GUUterus string `firestore:"gu_uterus"`
+    UpperLimbBilateral string `firestore:"upper_limb_bilateral"`
+    UpperLimbUnilateral string `firestore:"upper_limb_unilateral"`
 }
 
 
