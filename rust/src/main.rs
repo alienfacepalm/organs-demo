@@ -1,7 +1,5 @@
 // main.rs
 
-mod firestore_config;
-
 use firestore::firestore_client::FirestoreClient;
 use firestore::Organ;
 use serde::Deserialize;
