@@ -14,7 +14,7 @@ import (
 
 const (
     projectId       = "organs-demo" 
-    firestoreAPIKey = "./organs-demo-api-key.json" 
+    firestoreAPIKey = "../organs-demo-api-key.json" 
     collectionName  = "organs"
 )
 
