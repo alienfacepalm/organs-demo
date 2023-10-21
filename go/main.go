@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	// "fmt"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -49,6 +49,7 @@ type Organ struct {
 
 
 func getOrgans(c *gin.Context) {
+    fmt.Println("Getting organ list")
     ctx := context.Background()
 
     iter := firestoreClient.Collection(collectionName).Documents(ctx)
