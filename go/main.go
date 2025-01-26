@@ -25,12 +25,9 @@ const (
 
 var firestoreClient *firestore.Client
 
-// ... existing code ...
-
 func initFirestore() {
     ctx := context.Background()
     
-    // Try current directory first, then parent directory
     keyFile := "./organs-demo-api-key.json"
     if _, err := os.Stat(keyFile); os.IsNotExist(err) {
         keyFile = "../organs-demo-api-key.json"
@@ -61,12 +58,10 @@ type Organ struct {
     UpperLimbUnilateral string `firestore:"upper_limb_unilateral"`
 }
 
-
 func getOrgans(c *gin.Context) {
     fmt.Println("Getting organ list")
     ctx := context.Background()
 
-    // Set JSON content type
     c.Header("Content-Type", "application/json")
 
     iter := firestoreClient.Collection(collectionName).Documents(ctx)
@@ -97,13 +92,10 @@ func getOrgans(c *gin.Context) {
 func openBrowser(url string) {
     var err error
 
-    // Check if running in WSL
     if runtime.GOOS == "linux" {
         wslCheck, err := os.ReadFile("/proc/version")
         if err == nil && strings.Contains(strings.ToLower(string(wslCheck)), "microsoft") {
-            // Escape the URL for powershell
             escapedUrl := strings.ReplaceAll(url, "&", "^&")
-            // Use powershell.exe to open in Windows browser from WSL
             if err := exec.Command("powershell.exe", "-c", fmt.Sprintf("start '%s'", escapedUrl)).Start(); err != nil {
                 log.Printf("Error opening browser in WSL: %v", err)
             }
@@ -132,7 +124,6 @@ func main() {
 
     r := gin.Default()
     
-    // Add CORS middleware
     r.Use(func(c *gin.Context) {
         c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
         c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
@@ -147,18 +138,15 @@ func main() {
         c.Next()
     })
 
-    // Group API routes
     api := r.Group("/api")
     {
         api.GET("/organs", getOrgans)
     }
 
-    // Add a health check endpoint
     r.GET("/health", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{"status": "ok"})
     })
 
-    // Add error handling for 404
     r.NoRoute(func(c *gin.Context) {
         c.JSON(http.StatusNotFound, gin.H{"error": "Route not found"})
     })
@@ -174,7 +162,6 @@ func main() {
     `, runtime.GOOS)
     fmt.Println("Server starting on :8080")
     
-    // Launch browser after a short delay to ensure server is ready
     go func() {
         time.Sleep(500 * time.Millisecond)
         openBrowser("http://localhost:8080/api/organs")
