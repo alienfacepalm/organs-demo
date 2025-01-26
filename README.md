@@ -7,9 +7,15 @@
 
 #### Instructions
 - Obtain password for api key zip file
-- Install api key json file
+- Install api key json file from Firestore
+    - Setup a firebase account and project
+    - Setup a firestore database
+    - Setup a firestore user with the proper permissions
+    - Setup a firestore service account with the proper permissions
+    - Download the service account json file
+    - Unzip the file and copy the json file to the root of this repo and name it organs-demo-api-key.json
 - Have Go 1.20+ installed
-- Run: `go run main.go`
+- Run: `go run main.go` OR `make run`, which will build the binary and run it
 - Crack open `http://localhost:8080`
 
 #### TODO

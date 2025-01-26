@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"cloud.google.com/go/firestore"
 	"github.com/gin-gonic/gin"
@@ -14,15 +15,24 @@ import (
 
 const (
     projectId       = "organs-demo" 
-    firestoreAPIKey = "../organs-demo-api-key.json" 
+    firestoreAPIKey = "./organs-demo-api-key.json" 
     collectionName  = "organs"
 )
 
 var firestoreClient *firestore.Client
 
+// ... existing code ...
+
 func initFirestore() {
     ctx := context.Background()
-    client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile(firestoreAPIKey))
+    
+    // Try current directory first, then parent directory
+    keyFile := "./organs-demo-api-key.json"
+    if _, err := os.Stat(keyFile); os.IsNotExist(err) {
+        keyFile = "../organs-demo-api-key.json"
+    }
+    
+    client, err := firestore.NewClient(ctx, projectId, option.WithCredentialsFile(keyFile))
     if err != nil {
         log.Fatalf("Failed to create Firestore client: %v", err)
     }
@@ -81,6 +91,39 @@ func main() {
     initFirestore()
 
     r := gin.Default()
-    r.GET("/organs", getOrgans)
-    r.Run(":8080") 
+    
+    // Add CORS middleware
+    r.Use(func(c *gin.Context) {
+        c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+        c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        
+        if c.Request.Method == "OPTIONS" {
+            c.AbortWithStatus(204)
+            return
+        }
+        
+        c.Next()
+    })
+
+    // Group API routes
+    api := r.Group("/api")
+    {
+        api.GET("/organs", getOrgans)
+    }
+
+    // Add a health check endpoint
+    r.GET("/health", func(c *gin.Context) {
+        c.JSON(http.StatusOK, gin.H{"status": "ok"})
+    })
+
+    // Add error handling for 404
+    r.NoRoute(func(c *gin.Context) {
+        c.JSON(http.StatusNotFound, gin.H{"error": "Route not found"})
+    })
+
+    fmt.Println("Server starting on :8080")
+    if err := r.Run(":8080"); err != nil {
+        log.Fatalf("Failed to start server: %v", err)
+    }
 }
