@@ -15,8 +15,12 @@
     - Download the service account json file
     - Unzip the file and copy the json file to the root of this repo and name it organs-demo-api-key.json
 - Have Go 1.20+ installed
-- Run: `go run main.go` OR `make run`, which will build the binary and run it
+- Run: `make run` to build and start the server
+  - Alternatively, cd into the `go` directory and run: `go run main.go`
 - Crack open `http://localhost:8080`
+
+#### Project Status
+This is primarily a Go-based project, with a Rust implementation currently in development as an alternative version.
 
 #### TODO
 - TODO: graphql server
