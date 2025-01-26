@@ -17,7 +17,7 @@
 - Have Go 1.20+ installed
 - Run: `make run` to build and start the server
   - Alternatively, cd into the `go` directory and run: `go run main.go`
-- Crack open `http://localhost:8080`
+- Crack open `http://localhost:8080/api/organs` in your browser
 
 #### Project Status
 This is primarily a Go-based project, with a Rust implementation currently in development as an alternative version.
